@@ -57,3 +57,17 @@ describe('guessCharacterGeneric operation', () => {
         expect(code.guessCharacterGeneric('1523', '0532')).toBe('X__');
     });
 });
+
+describe('guessCharacterGenericException operation', () => {
+    test('guessCharacterGenericException 5876 to equal "No pueden haber caracteres repetidos"', () => {
+        expect(code.guessCharacterGenericException('4896', '5866')).toBe('No pueden haber caracteres repetidos');
+    });
+
+    test('guessCharacterGenericException 1523 to equal X__', () => {
+        expect(code.guessCharacterGenericException('1523', '0532')).toBe('X__');
+    });
+
+    test('guessCharacterGenericException 9176 to equal ', () => {
+        expect(code.guessCharacterGenericException('4532', '9176')).toBe('');
+    });
+});

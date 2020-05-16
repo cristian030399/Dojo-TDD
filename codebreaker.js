@@ -83,11 +83,26 @@ function guessCharacterGeneric(characterToGuess, character) {
     return response;
 }
 
-function guessCharacterGenericexception(characterToGuess, character) {
+function guessCharacterGenericException(characterToGuess, character) {
     let response = '';
     characterToGuessSplit = characterToGuess.split("");
+    characterSplit = character.split("");
+    for (const c of characterSplit) {
+        if ((character.match(new RegExp(c, "g")) || []).length > 1) {
+            return "No pueden haber caracteres repetidos";
+        }
+    }
 
+    for (let i = 0; i < characterSplit.length; i++) {
+        poss = characterToGuessSplit.indexOf(characterSplit[i]);
+        if (poss == i) {
+            response = 'X'.concat(response);
+        } else if (poss != -1) {
+            response = response.concat('_');
+        }
+    }
 
+    return response;
 }
 
 
@@ -95,3 +110,4 @@ function guessCharacterGenericexception(characterToGuess, character) {
 module.exports.guess = guess;
 module.exports.guessCharacter = guessCharacter;
 module.exports.guessCharacterGeneric = guessCharacterGeneric;
+module.exports.guessCharacterGenericException = guessCharacterGenericException;
