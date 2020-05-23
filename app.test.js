@@ -20,12 +20,29 @@ test('get the guessCharacter endpoint', async done => {
     done();
 });
 
-test('get the guessCharacterGenericException endpoint', async done => {
+test('get the guessCharacterGenericException with Fail endpoint', async done => {
     const responde = await request.get('/guessCharacterGenericException?characterToGuess=1523&character=2550') // Act
     expect(responde.status).toBe(200);
     expect(responde.type).toBe('application/json');
     expect(responde.body.result).not.toBeNull();
     expect(responde.body.result).toBe('No pueden haber caracteres repetidos');
+    done();
+});
+
+
+const expected = [
+    expect.stringMatching(/X/),
+    expect.stringMatching(/^[X_]/),
+];
+it('get the guessCharacterGenericException with regular expression endpoint', async done => {
+    const responde = await request.get('/guessCharacterGenericException?characterToGuess=1523&character=2510') // Act
+    expect(responde.status).toBe(200);
+    expect(responde.type).toBe('application/json');
+    expect(responde.body.result).not.toBeNull();
+    mySplitResult = responde.body.result.split("");
+    expect(mySplitResult).toEqual(
+        expect.arrayContaining(expected),
+    );
     done();
 });
 
